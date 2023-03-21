@@ -1,0 +1,118 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema networking_cmpe_207
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema networking_cmpe_207
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `networking_cmpe_207` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `networking_cmpe_207` ;
+
+-- -----------------------------------------------------
+-- Table `networking_cmpe_207`.`users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `networking_cmpe_207`.`users` (
+  `user_name` VARCHAR(45) NOT NULL,
+  `user_password` VARCHAR(45) NOT NULL,
+  `user_type` ENUM('Super', 'Regular') NOT NULL,
+  PRIMARY KEY (`user_name`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+USE `networking_cmpe_207` ;
+
+-- -----------------------------------------------------
+-- procedure get_pass
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `networking_cmpe_207`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_pass`(in UN varchar (45), in UP varchar(45), in UT varchar(45) )
+begin 
+select count(user_name) from users
+where user_name=UN and user_type=UT and user_password=md5(UP);
+end$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure user_add
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `networking_cmpe_207`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `user_add`(in UN varchar (45), in P varchar(45), in UT varchar(45))
+begin 
+insert into users 
+values (UN, MD5(P), UT);
+end$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure user_deletion
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `networking_cmpe_207`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `user_deletion`(in UN varchar (45))
+begin 
+delete from users 
+where user_name=UN;
+end$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure user_list
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `networking_cmpe_207`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `user_list`()
+begin 
+select * from users;
+end$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure user_list_clear
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `networking_cmpe_207`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `user_list_clear`()
+begin 
+truncate table users;
+end$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure user_update
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `networking_cmpe_207`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `user_update`(in UN varchar (45), in P varchar(45), in UT varchar(45))
+begin 
+replace into users 
+values (UN, MD5(P), UT);
+end$$
+
+DELIMITER ;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
