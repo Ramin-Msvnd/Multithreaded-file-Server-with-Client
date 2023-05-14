@@ -12,6 +12,8 @@ SQL Script should be used to create the schema, copy and past it to build the sc
 
 There must be a directory called server_data that contains the files to share as there is in the repo 
 
+There must be a python file called Credentials.py similar to Credentials_Example.py based on your db connection
+
 The server should Run by command "python run server" CMD or terminal
 
 create a file named ".env", paste the line below there and replace YourPassword with your database password 

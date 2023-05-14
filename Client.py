@@ -4,17 +4,15 @@ from tkinter.filedialog import askopenfilename
 from tkinter import messagebox
 import pymysql.cursors
 import os
-from dotenv import load_dotenv
 from Console import console
+import Credentials
 
-load_dotenv()
-databasePass=os.getenv('databasePass')
 
 
 def auth(username, password, user_type):
     
-    connection = pymysql.connect(host='',user='root',password=databasePass,
-                             db='networking_CMPE_207',charset='utf8mb4',
+    connection = pymysql.connect(host='',user=Credentials.DB_User,password=Credentials.DB_Password,
+                             db=Credentials.DB_Name,charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
     '''connection user, password,db name need modification based on your database'''
     try:

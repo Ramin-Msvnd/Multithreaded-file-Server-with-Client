@@ -96,7 +96,7 @@ def console(isSuper, window):
                  LIST()
        
         
-        btn_delete = ttk.Button(delWin,text = 'File Removal',command = lambda: confirmRemoval(fN))
+        btn_delete = ttk.Button(delWin,text = 'Delete File',command = lambda: confirmRemoval(fN))
         btn_delete.place(relx = .4,rely = 0.15)
         def callbackFunc(event):
             global fN
